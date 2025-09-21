@@ -13,7 +13,17 @@ class BaseFileUpload extends FilamentBaseFileUpload
 {
     protected string | Closure | null $optimize = null;
 
-    protected string | Closure | null $quality = null;
+    protected int | Closure | null $quality = null;
+
+    protected string | Closure | null $watermark = null;
+
+    protected ?string $watermarkPosition = null;
+
+    protected int | Closure | null $watermarkOpacity = null;
+
+    protected int | Closure | null $watermarkOffsetX = null;
+
+    protected int | Closure | null $watermarkOffsetY = null;
 
     protected int | Closure | null $resize = null;
 
@@ -37,6 +47,7 @@ class BaseFileUpload extends FilamentBaseFileUpload
             $filename = $component->getUploadedFileNameForStorage($file);
             $optimize = $component->getOptimization();
             $quality = $component->getQuality();
+            $watermark = $component->getWatermark();
             $resize = $component->getResize();
             $maxImageWidth = $component->getMaxImageWidth();
             $maxImageHeight = $component->getMaxImageHeight();
@@ -78,6 +89,25 @@ class BaseFileUpload extends FilamentBaseFileUpload
                     });
                 }
 
+                if ($watermark) {
+                    $wm = is_string($watermark) || is_resource($watermark) ? InterventionImage::make($watermark) : $watermark;
+
+                    $watermarkPosition = $component->getWatermarkPosition();
+                    $opacity = $component->getWatermarkOpacity() ?? 75;
+                    $offsetX = $component->getWatermarkOffsetX();
+                    $offsetY = $component->getWatermarkOffsetY();
+
+                    if (method_exists($wm, 'opacity')) {
+                        $wm->opacity($opacity);
+                    }
+
+                    if ($offsetX === null && $offsetY === null) {
+                        $image->insert($wm, $watermarkPosition ?? 'bottom-right');
+                    } else {
+                        $image->insert($wm, $watermarkPosition ?? 'bottom-right', $offsetX ?? 0, $offsetY ?? 0);
+                    }
+                }
+
                 $binary = $optimize ? $image->encode($optimize, $quality) : $image->encode();
                 $filename = self::formatFilename($filename, $optimize);
 
@@ -117,6 +147,29 @@ class BaseFileUpload extends FilamentBaseFileUpload
         return $this;
     }
 
+    public function watermark(string | Closure | null $watermark, ?string $watermarkPosition): static
+    {
+        $this->watermark = $watermark;
+        $this->watermarkPosition = $watermarkPosition ?? 'bottom-right';
+
+        return $this;
+    }
+
+    public function watermarkOpacity(int | Closure | null $opacity): static
+    {
+        $this->watermarkOpacity = $opacity;
+
+        return $this;
+    }
+
+    public function watermarkOffset(int | Closure | null $x, int | Closure | null $y): static
+    {
+        $this->watermarkOffsetX = $x;
+        $this->watermarkOffsetY = $y;
+
+        return $this;
+    }
+
     public function resize(int | Closure | null $reductionPercentage): static
     {
         $this->resize = $reductionPercentage;
@@ -143,9 +196,34 @@ class BaseFileUpload extends FilamentBaseFileUpload
         return $this->evaluate($this->optimize);
     }
 
-    public function getQuality(): ?string
+    public function getQuality(): ?int
     {
         return $this->evaluate($this->quality);
+    }
+
+    public function getWatermark(): ?string
+    {
+        return $this->evaluate($this->watermark);
+    }
+
+    public function getWatermarkPosition(): ?string
+    {
+        return $this->evaluate($this->watermarkPosition);
+    }
+
+    public function getWatermarkOpacity(): ?int
+    {
+        return $this->evaluate($this->watermarkOpacity);
+    }
+
+    public function getWatermarkOffsetX(): ?int
+    {
+        return $this->evaluate($this->watermarkOffsetX);
+    }
+
+    public function getWatermarkOffsetY(): ?int
+    {
+        return $this->evaluate($this->watermarkOffsetY);
     }
 
     public function getResize(): ?int
