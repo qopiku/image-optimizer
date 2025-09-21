@@ -13,6 +13,8 @@ class BaseFileUpload extends FilamentBaseFileUpload
 {
     protected string | Closure | null $optimize = null;
 
+    protected string | Closure | null $quality = null;
+
     protected int | Closure | null $resize = null;
 
     protected int | Closure | null $maxImageWidth = null;
@@ -34,6 +36,7 @@ class BaseFileUpload extends FilamentBaseFileUpload
 
             $filename = $component->getUploadedFileNameForStorage($file);
             $optimize = $component->getOptimization();
+            $quality = $component->getQuality();
             $resize = $component->getResize();
             $maxImageWidth = $component->getMaxImageWidth();
             $maxImageHeight = $component->getMaxImageHeight();
@@ -41,13 +44,12 @@ class BaseFileUpload extends FilamentBaseFileUpload
             $shouldProcess = false;
             $imageWidth = null;
             $imageHeight = null;
-            $quality = null;
 
             if (str_contains($file->getMimeType(), 'image') && ($optimize || $resize || $maxImageWidth || $maxImageHeight)) {
                 $image = InterventionImage::make($file->get());
 
                 if ($optimize) {
-                    $quality = in_array(strtolower($optimize), ['jpeg', 'jpg'], true) ? 70 : 100;
+                    $quality = in_array(strtolower($optimize), ['jpeg', 'jpg'], true) && is_null($quality) ? 70 : 100;
                 }
 
                 if ($maxImageWidth && $image->width() > $maxImageWidth) {
@@ -104,9 +106,13 @@ class BaseFileUpload extends FilamentBaseFileUpload
         });
     }
 
-    public function optimize(string | Closure | null $format): static
+    public function optimize(string | Closure | null $format, ?int $quality): static
     {
         $this->optimize = $format;
+
+        if (! is_null($quality)) {
+            $this->quality = $quality;
+        }
 
         return $this;
     }
@@ -135,6 +141,11 @@ class BaseFileUpload extends FilamentBaseFileUpload
     public function getOptimization(): ?string
     {
         return $this->evaluate($this->optimize);
+    }
+
+    public function getQuality(): ?string
+    {
+        return $this->evaluate($this->quality);
     }
 
     public function getResize(): ?int
