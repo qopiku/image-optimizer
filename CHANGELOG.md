@@ -10,11 +10,11 @@ All notable changes to `image-optimizer` will be documented in this file.
 
 ### What's Changed
 
-* fix: Undefined variable $isPasteable by @WillieOng-HK in https://github.com/joshembling/image-optimizer/pull/52
+-   fix: Undefined variable $isPasteable by @WillieOng-HK in https://github.com/joshembling/image-optimizer/pull/52
 
 ### New Contributors
 
-* @WillieOng-HK made their first contribution in https://github.com/joshembling/image-optimizer/pull/52
+-   @WillieOng-HK made their first contribution in https://github.com/joshembling/image-optimizer/pull/52
 
 **Full Changelog**: https://github.com/joshembling/image-optimizer/compare/v1.6.1...v1.6.2
 
@@ -22,11 +22,11 @@ All notable changes to `image-optimizer` will be documented in this file.
 
 ### What's Changed
 
-* fix: match method signature with Filament update by @SupianIDz in https://github.com/joshembling/image-optimizer/pull/50
+-   fix: match method signature with Filament update by @SupianIDz in https://github.com/joshembling/image-optimizer/pull/50
 
 ### New Contributors
 
-* @SupianIDz made their first contribution in https://github.com/joshembling/image-optimizer/pull/50
+-   @SupianIDz made their first contribution in https://github.com/joshembling/image-optimizer/pull/50
 
 **Full Changelog**: https://github.com/joshembling/image-optimizer/compare/v1.6.0...v1.6.1
 
@@ -34,11 +34,11 @@ All notable changes to `image-optimizer` will be documented in this file.
 
 ### What's Changed
 
-* Laravel 12 compatibility by @FinnPaes in https://github.com/joshembling/image-optimizer/pull/42
+-   Laravel 12 compatibility by @FinnPaes in https://github.com/joshembling/image-optimizer/pull/42
 
 ### New Contributors
 
-* @FinnPaes made their first contribution in https://github.com/joshembling/image-optimizer/pull/42
+-   @FinnPaes made their first contribution in https://github.com/joshembling/image-optimizer/pull/42
 
 **Full Changelog**: https://github.com/joshembling/image-optimizer/compare/v1.5.0...v1.6.0
 
@@ -46,11 +46,11 @@ All notable changes to `image-optimizer` will be documented in this file.
 
 ### What's Changed
 
-* Add Conditional Image Resizing Functions by @Autive in https://github.com/joshembling/image-optimizer/pull/40
+-   Add Conditional Image Resizing Functions by @Autive in https://github.com/joshembling/image-optimizer/pull/40
 
 ### New Contributors
 
-* @Autive made their first contribution in https://github.com/joshembling/image-optimizer/pull/40
+-   @Autive made their first contribution in https://github.com/joshembling/image-optimizer/pull/40
 
 **Full Changelog**: https://github.com/joshembling/image-optimizer/compare/v1.4.4...v1.5.0
 
@@ -58,11 +58,11 @@ All notable changes to `image-optimizer` will be documented in this file.
 
 ### What's Changed
 
-* Fixed maxParallelUploads attribute bug by @lucasvieira2902 in https://github.com/joshembling/image-optimizer/pull/39
+-   Fixed maxParallelUploads attribute bug by @lucasvieira2902 in https://github.com/joshembling/image-optimizer/pull/39
 
 ### New Contributors
 
-* @lucasvieira2902 made their first contribution in https://github.com/joshembling/image-optimizer/pull/39
+-   @lucasvieira2902 made their first contribution in https://github.com/joshembling/image-optimizer/pull/39
 
 **Full Changelog**: https://github.com/joshembling/image-optimizer/compare/v1.4.3...v1.4.4
 
@@ -74,11 +74,11 @@ All notable changes to `image-optimizer` will be documented in this file.
 
 ### What's Changed
 
-* handle afterStateUpdated as array by @cleeimpro in https://github.com/joshembling/image-optimizer/pull/33
+-   handle afterStateUpdated as array by @cleeimpro in https://github.com/joshembling/image-optimizer/pull/33
 
 ### New Contributors
 
-* @cleeimpro made their first contribution in https://github.com/joshembling/image-optimizer/pull/33
+-   @cleeimpro made their first contribution in https://github.com/joshembling/image-optimizer/pull/33
 
 **Full Changelog**: https://github.com/joshembling/image-optimizer/compare/v1.4.1...v1.4.2
 
@@ -86,30 +86,30 @@ All notable changes to `image-optimizer` will be documented in this file.
 
 ### What's Changed
 
-* fix: undefined class facade ImageOptimizer by @ahmadrio in https://github.com/joshembling/image-optimizer/pull/24
+-   fix: undefined class facade ImageOptimizer by @ahmadrio in https://github.com/joshembling/image-optimizer/pull/24
 
 ### New Contributors
 
-* @ahmadrio made their first contribution in https://github.com/joshembling/image-optimizer/pull/24
+-   @ahmadrio made their first contribution in https://github.com/joshembling/image-optimizer/pull/24
 
 **Full Changelog**: https://github.com/joshembling/image-optimizer/compare/v1.4.0...v1.4.1
 
 ## v1.4.0 - 2024-03-17
 
-- Adds support for Laravel 11
-- Minimum PHP requirement now 8.2
+-   Adds support for Laravel 11
+-   Minimum PHP requirement now 8.2
 
 **Full Changelog**: https://github.com/joshembling/image-optimizer/compare/v1.3.1...v1.4.0
 
 ## v1.3.1 - 2024-02-03
 
-- Updates documentation around versioning
+-   Updates documentation around versioning
 
 **Full Changelog**: https://github.com/joshembling/image-optimizer/compare/v1.3.0...v1.3.1
 
 ## v1.3.0 - 2024-01-28
 
-- Fixes https://github.com/joshembling/image-optimizer/issues/9 with upgrades to latest Filament changes in v3.2^
+-   Fixes https://github.com/joshembling/image-optimizer/issues/9 with upgrades to latest Filament changes in v3.2^
 
 **Full Changelog**: https://github.com/joshembling/image-optimizer/compare/v1.2.0...v1.3.0
 
@@ -141,13 +141,13 @@ Package name and action changes
 
 ### What's Changed
 
-- Bump actions/checkout from 3 to 4 by @dependabot in https://github.com/joshembling/image-optimizer/pull/1
-- Revert "Bump actions/checkout from 3 to 4" by @joshembling in https://github.com/joshembling/image-optimizer/pull/2
+-   Bump actions/checkout from 3 to 4 by @dependabot in https://github.com/joshembling/image-optimizer/pull/1
+-   Revert "Bump actions/checkout from 3 to 4" by @joshembling in https://github.com/joshembling/image-optimizer/pull/2
 
 ### New Contributors
 
-- @dependabot made their first contribution in https://github.com/joshembling/image-optimizer/pull/1
-- @joshembling made their first contribution in https://github.com/joshembling/image-optimizer/pull/2
+-   @dependabot made their first contribution in https://github.com/joshembling/image-optimizer/pull/1
+-   @joshembling made their first contribution in https://github.com/joshembling/image-optimizer/pull/2
 
 **Full Changelog**: https://github.com/joshembling/image-optimizer/compare/v1.0.1...v1.0.2
 
@@ -159,4 +159,4 @@ Documentation update
 
 ## 1.0.0 - 202X-XX-XX
 
-- initial release
+-   initial release

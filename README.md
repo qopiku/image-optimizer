@@ -8,30 +8,34 @@
 
 When you currently upload an image using the native Filament component `FileUpload`, the original file is saved without any compression or conversion.
 
-Additionally, if you upload an image and use conversions with `SpatieMediaLibraryFileUpload`, the original file is saved with its corresponding versions provided on your model. 
+Additionally, if you upload an image and use conversions with `SpatieMediaLibraryFileUpload`, the original file is saved with its corresponding versions provided on your model.
 
 What if you'd rather convert and reduce the image(s) before reaching your database/S3 bucket? Especially in the case where you know you'll never need to save the original image sizes the user has uploaded.
 
-🤳 **This is where Filament Image Optimizer comes in**. 
+🤳 **This is where Filament Image Optimizer comes in**.
 
 You use the same components as you have been doing and have access to two additional methods for maximum optimization, saving you a lot of disk space in the process. 🎉
 
 ## Contents
 
-- [Contents](#contents)
-- [Installation](#installation)
-- [Usage](#usage)
-	- [Optimizing Images](#optimizing-images)
-	- [Resizing Images](#resizing-images)
-	- [Combining Methods](#combining-methods)
-	- [Multiple Images](#multiple-images)
-	- [Examples](#examples)
-	- [Debugging](#debugging)
-- [Changelog](#changelog)
-- [Contributing](#contributing)
-- [Security Vulnerabilities](#security-vulnerabilities)
-- [Credits](#credits)
-- [Licence](#license)
+-   [Optimize your Filament images before they reach your database.](#optimize-your-filament-images-before-they-reach-your-database)
+    -   [Contents](#contents)
+    -   [Installation](#installation)
+    -   [Usage](#usage)
+        -   [Filament version](#filament-version)
+        -   [Server](#server)
+        -   [Optimizing images](#optimizing-images)
+        -   [Resizing images](#resizing-images)
+        -   [Add maximum width and/or height](#add-maximum-width-andor-height)
+        -   [Combining methods](#combining-methods)
+        -   [Multiple images](#multiple-images)
+        -   [Examples](#examples)
+        -   [Debugging](#debugging)
+    -   [Changelog](#changelog)
+    -   [Contributing](#contributing)
+    -   [Security Vulnerabilities](#security-vulnerabilities)
+    -   [Credits](#credits)
+    -   [License](#license)
 
 ## Installation
 
@@ -41,7 +45,8 @@ You can install the package via composer, which currently works with the latest 
 composer require joshembling/image-optimizer
 ```
 
-If you are using Filament 3.0 or 3.1 install with: 
+If you are using Filament 3.0 or 3.1 install with:
+
 ```bash
 composer require joshembling/image-optimizer:v1.2
 ```
@@ -54,13 +59,13 @@ You must be using [Filament v3.x](https://filamentphp.com/docs/3.x/panels/instal
 
 For specific versions that match your PHP, Laravel, Filament and Image Optimizer installations please see the table below:
 
-| PHP | Laravel version | Filament version | Image Optimizer version |
-| ----- | ----- | -----| ----- |
-| ^8.1 | ^10.0 | ^3.0 | 1.2 |
-| ^8.1 | ^10.0 | ^3.1 | 1.2 |
-| ^8.1 | ^10.0 | ^3.2 | ~1.3 |
-| ^8.2 | ^10.0, ^11.0 | ^3.2 | ^1.4 |
-| ^8.2 | ^10.0, ^11.0, ^12.0 | ^3.2 | ^1.6 |
+| PHP  | Laravel version     | Filament version | Image Optimizer version |
+| ---- | ------------------- | ---------------- | ----------------------- |
+| ^8.1 | ^10.0               | ^3.0             | 1.2                     |
+| ^8.1 | ^10.0               | ^3.1             | 1.2                     |
+| ^8.1 | ^10.0               | ^3.2             | ~1.3                    |
+| ^8.2 | ^10.0, ^11.0        | ^3.2             | ^1.4                    |
+| ^8.2 | ^10.0, ^11.0, ^12.0 | ^3.2             | ^1.6                    |
 
 ### Server
 
@@ -70,25 +75,25 @@ For specific versions that match your PHP, Laravel, Filament and Image Optimizer
 
 Before uploading your image, you may choose to optimize it by converting to your chosen format. The file saved to your disk will be the converted version only.
 
-E.g. I want to convert my image to 'webp': 
+E.g. I want to convert my image to 'webp':
 
-`````php
+```php
 use Filament\Forms\Components\FileUpload;
 
 FileUpload::make('attachment')
     ->image()
     ->optimize('webp'),
-`````
+```
 
 You can do exactly the same using `SpatieMediaLibraryFileUpload`:
 
-`````php
+```php
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 SpatieMediaLibraryFileUpload::make('attachment')
     ->image()
     ->optimize('webp'),
-`````
+```
 
 ### Resizing images
 
@@ -96,66 +101,70 @@ You may also want to resize an image by passing in a percentage you would like t
 
 E.g. I'd like to reduce my image (1280px x 720px) by 50%:
 
-`````php
+```php
 use Filament\Forms\Components\FileUpload;
 
 FileUpload::make('attachment')
     ->image()
     ->resize(50),
-`````
+```
 
 Uploaded image size is 640px x 360px.
 
 You can do the same using `SpatieMediaLibraryFileUpload`:
 
-`````php
+```php
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 SpatieMediaLibraryFileUpload::make('attachment')
     ->image()
     ->resize(50),
-`````
+```
 
 ### Add maximum width and/or height
 
 You can also add a maximum width and/or height to the image. This will resize the image to the maximum width and/or height, maintaining the aspect ratio.
 
-`````php
+```php
 use Filament\Forms\Components\FileUpload;
 
 FileUpload::make('attachment')
     ->image()
-    ->maxWidth(1024)
-    ->maxHeight(768),
-`````
+    ->maxImageWidth(1024)
+    ->maxImageHeight(768),
+```
 
 ### Combining methods
 
 You can combine these two methods for maximum optimization.
 
-`````php
+```php
 use Filament\Forms\Components\FileUpload;
 
 FileUpload::make('attachment')
 	->image()
 	->optimize('webp')
+  	->maxImageWidth(1024)
+	->maxImageHeight(768)
 	->resize(50),
-`````
+```
 
-`````php
+```php
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 SpatieMediaLibraryFileUpload::make('attachment')
     ->image()
 	->optimize('webp')
+	->maxImageWidth(1024)
+	->maxImageHeight(768)
     ->resize(50),
-`````
+```
 
 ### Multiple images
 
 You can also do this with multiple images - all images will be converted to the same format and reduced with the same percentage passed in. Just chain on `multiple()` to your upload:
 
-`````php
+```php
 use Filament\Forms\Components\FileUpload;
 
 FileUpload::make('attachment')
@@ -163,9 +172,9 @@ FileUpload::make('attachment')
 	->multiple()
 	->optimize('jpg')
     ->resize(50),
-`````
+```
 
-`````php
+```php
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 SpatieMediaLibraryFileUpload::make('attachment')
@@ -173,19 +182,19 @@ SpatieMediaLibraryFileUpload::make('attachment')
 	->multiple()
 	->optimize('jpg')
     ->resize(50),
-`````
+```
 
-### Examples 
+### Examples
 
-![Before](images/before.jpg) 
+![Before](images/before.jpg)
 
 ![After](images/after.jpg)
 
 ### Debugging
 
-- If you see a 'not found' exception, including "Method `optimize`" or "Method `resize`", ensure you run `composer update` so that your lock file is in sync with your `composer.json`. 
+-   If you see a 'not found' exception, including "Method `optimize`" or "Method `resize`", ensure you run `composer update` so that your lock file is in sync with your `composer.json`.
 
-- You might see a 'Waiting for size' message and an infinite loading state on the component and the likely cause of this is a CORS issue. This can be quickly be resolved by ensuring you are serving and upload images from the same domain. Check your Javascript console for more information.
+-   You might see a 'Waiting for size' message and an infinite loading state on the component and the likely cause of this is a CORS issue. This can be quickly be resolved by ensuring you are serving and upload images from the same domain. Check your Javascript console for more information.
 
 ## Changelog
 
@@ -201,8 +210,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Josh Embling](https://github.com/joshembling)
-- [All Contributors](../../contributors)
+-   [Josh Embling](https://github.com/joshembling)
+-   [All Contributors](../../contributors)
 
 ## License
 
