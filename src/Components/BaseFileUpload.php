@@ -47,7 +47,7 @@ class BaseFileUpload extends FilamentBaseFileUpload
                 $image = InterventionImage::make($file->get());
 
                 if ($optimize) {
-                    $quality = in_array(strtolower($optimize), ['jpeg', 'jpg'], true) ? 70 : null;
+                    $quality = in_array(strtolower($optimize), ['jpeg', 'jpg'], true) ? 70 : 100;
                 }
 
                 if ($maxImageWidth && $image->width() > $maxImageWidth) {
