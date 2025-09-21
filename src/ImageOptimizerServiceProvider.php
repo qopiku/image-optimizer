@@ -2,8 +2,7 @@
 
 namespace Joshembling\ImageOptimizer;
 
-use Filament\Forms\Components\BaseFileUpload;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\BaseFileUpload as FilamentBaseFileUpload;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\AliasLoader;
 use Joshembling\ImageOptimizer\Components\BaseFileUpload as CustomBaseFileUpload;
@@ -18,8 +17,9 @@ class ImageOptimizerServiceProvider extends PackageServiceProvider
 
     public function boot()
     {
-        AliasLoader::getInstance()->alias(BaseFileUpload::class, CustomBaseFileUpload::class);
-        AliasLoader::getInstance()->alias(SpatieMediaLibraryFileUpload::class, CustomSpatieMediaLibraryFileUpload::class);
+        $aliasLoader = AliasLoader::getInstance();
+        $aliasLoader->alias(FilamentBaseFileUpload::class, CustomBaseFileUpload::class);
+        $aliasLoader->alias('Filament\\Forms\\Components\\SpatieMediaLibraryFileUpload', CustomSpatieMediaLibraryFileUpload::class);
     }
 
     public function configurePackage(Package $package): void
@@ -46,7 +46,6 @@ class ImageOptimizerServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        // Handle Stubs
         if (app()->runningInConsole()) {
             foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
                 $this->publishes([
